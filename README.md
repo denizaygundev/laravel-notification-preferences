@@ -40,12 +40,13 @@ screens for free.
 composer require denizaygundev/laravel-notification-preferences
 
 php artisan vendor:publish --tag="notification-preferences-config"
-php artisan vendor:publish --tag="notification-preferences-migrations"   # optional: only to customise
+php artisan vendor:publish --tag="notification-preferences-migrations"
 php artisan migrate
 ```
 
-Migrations are auto-loaded, so publishing them is only needed if you want to customise the schema
-(see [Notifiable key types](#notifiable-key-types)).
+Publishing the migrations copies them into your app (Laravel re-stamps them with the current
+timestamp), so you can review or customise them — e.g. for
+[bigint notifiable keys](#notifiable-key-types) — before running `migrate`.
 
 ## Quick start
 

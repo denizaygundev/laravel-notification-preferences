@@ -7,6 +7,7 @@ namespace Denizaygundev\NotificationPreferences;
 use Denizaygundev\NotificationPreferences\Channels\PreferenceAwareMailChannel;
 use Denizaygundev\NotificationPreferences\Commands\SyncNotificationTypesCommand;
 use Denizaygundev\NotificationPreferences\Listeners\EnforceNotificationPreferences;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Notifications\Events\NotificationSending;
 use Illuminate\Support\Facades\Event;
@@ -33,18 +34,19 @@ class NotificationPreferencesServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        // Migrations are auto-loaded (so the host doesn't need to publish) but also publishable
-        // for customisation (e.g. switching string morph keys to bigint).
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
         if ($this->app->runningInConsole()) {
-            $this->publishes([
+            // Publish-only: the host publishes the migrations (Laravel re-stamps them with the
+            // current timestamp) and runs `php artisan migrate`. This keeps the schema
+            // customisable — e.g. switching the string morph keys to bigint — with no risk of a
+            // double-run from also auto-loading them.
+            $this->publishesMigrations([
                 __DIR__.'/../database/migrations' => database_path('migrations'),
             ], 'notification-preferences-migrations');
         }
 
         $this->registerEnforcementListener();
         $this->registerMailChannel();
+        $this->registerAboutCommand();
     }
 
     private function registerEnforcementListener(): void
@@ -65,5 +67,14 @@ class NotificationPreferencesServiceProvider extends PackageServiceProvider
         $this->app->resolving(ChannelManager::class, function (ChannelManager $manager): void {
             $manager->extend('mail', fn ($app) => $app->make(PreferenceAwareMailChannel::class));
         });
+    }
+
+    private function registerAboutCommand(): void
+    {
+        AboutCommand::add('Notification Preferences', fn (): array => [
+            'Enforcement' => config('notification-preferences.enforcement.enabled') ? 'enabled' : 'disabled',
+            'One-click unsubscribe' => config('notification-preferences.unsubscribe.enabled') ? 'enabled' : 'disabled',
+            'Audit driver' => (string) config('notification-preferences.audit.driver'),
+        ]);
     }
 }
