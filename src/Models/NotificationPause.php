@@ -17,6 +17,8 @@ use Illuminate\Support\Carbon;
  */
 class NotificationPause extends Model
 {
+    // Written only by package internals (the manager), never from request input, and the scope
+    // column name is configurable — so the table is intentionally left fully fillable.
     protected $guarded = [];
 
     public function getTable(): string

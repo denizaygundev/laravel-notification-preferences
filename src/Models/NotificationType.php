@@ -28,7 +28,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class NotificationType extends Model
 {
-    protected $guarded = [];
+    /** @var list<string> */
+    protected $fillable = [
+        'key',
+        'name',
+        'description',
+        'category',
+        'is_subscribable',
+        'available_channels',
+        'default_channels',
+        'sort_order',
+        'is_active',
+    ];
 
     public function getTable(): string
     {

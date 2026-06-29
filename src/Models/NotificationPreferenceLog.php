@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class NotificationPreferenceLog extends Model
 {
+    // Written only by package internals (the auditor), never from request input, and the scope
+    // column name is configurable — so the table is intentionally left fully fillable.
     protected $guarded = [];
 
     public function getTable(): string

@@ -30,7 +30,7 @@ screens for free.
 
 ## Requirements
 
-- PHP 8.2+
+- PHP 8.3+
 - Laravel 11, 12 or 13
 - Filament v5 (only if you use the UI layer)
 

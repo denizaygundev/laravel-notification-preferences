@@ -14,12 +14,12 @@
     "authors": [
         {
             "name": "Deniz Aygun",
-            "email": "deniz@daymoon.co.uk",
+            "email": "me@denizaygun.co.uk",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "illuminate/contracts": "^11.0|^12.0|^13.0",
         "illuminate/database": "^11.0|^12.0|^13.0",
         "illuminate/notifications": "^11.0|^12.0|^13.0",
@@ -71,7 +71,5 @@
                 "NotificationPreferences": "Denizaygundev\\NotificationPreferences\\Facades\\NotificationPreferences"
             }
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
