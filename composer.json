@@ -1,0 +1,77 @@
+{
+    "name": "denizaygundev/laravel-notification-preferences",
+    "description": "Notification preference & subscription management for Laravel, with a Filament admin + user UI, channel-level opt-out, pausing, one-click unsubscribe and consent logging.",
+    "keywords": [
+        "laravel",
+        "filament",
+        "notifications",
+        "preferences",
+        "subscriptions",
+        "unsubscribe"
+    ],
+    "homepage": "https://github.com/denizaygundev/laravel-notification-preferences",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Deniz Aygun",
+            "email": "deniz@daymoon.co.uk",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/contracts": "^11.0|^12.0|^13.0",
+        "illuminate/database": "^11.0|^12.0|^13.0",
+        "illuminate/notifications": "^11.0|^12.0|^13.0",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "spatie/laravel-package-tools": "^1.16"
+    },
+    "require-dev": {
+        "filament/filament": "^5.0",
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.0",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "pestphp/pest": "^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0",
+        "spatie/laravel-activitylog": "^4.0"
+    },
+    "suggest": {
+        "filament/filament": "Required for the admin notification-type resource and the user preference-matrix page (^5.0).",
+        "spatie/laravel-activitylog": "Enables mirroring preference changes to the activity_log table for the 'activitylog'/'both' audit drivers."
+    },
+    "autoload": {
+        "psr-4": {
+            "Denizaygundev\\NotificationPreferences\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Denizaygundev\\NotificationPreferences\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Denizaygundev\\NotificationPreferences\\NotificationPreferencesServiceProvider"
+            ],
+            "aliases": {
+                "NotificationPreferences": "Denizaygundev\\NotificationPreferences\\Facades\\NotificationPreferences"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
