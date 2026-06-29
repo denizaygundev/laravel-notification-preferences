@@ -83,6 +83,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Display timezone
+    |--------------------------------------------------------------------------
+    | Timezone used to render dates in the UI (e.g. the "paused until…" banner).
+    | null falls back to config('app.timezone'). May be a timezone string, or a
+    | closure resolving one — e.g. the current user's timezone:
+    |   'timezone' => fn () => Filament\Facades\Filament::auth()->user()?->timezone,
+    */
+    'timezone' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Scope (optional multi-tenant / team isolation)
     |--------------------------------------------------------------------------
     | Resolver returns the current scope id (a scalar) or null. When null,

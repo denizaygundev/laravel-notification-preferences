@@ -5,6 +5,7 @@
     /** @var array<string, array{label?: string, icon?: string}> $channels */
     /** @var array<string, int> $pausePresets */
     /** @var \Denizaygundev\NotificationPreferences\Models\NotificationPause|null $activePause */
+    /** @var string $timezone */
 
     $groups = collect($matrix)->groupBy(fn (array $item): string => $item['type']->category->value);
 @endphp
@@ -16,7 +17,7 @@
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <p class="text-sm text-gray-600 dark:text-gray-300">
                     @if ($activePause->paused_until)
-                        {{ __('notification-preferences::notification-preferences.paused_until', ['date' => $activePause->paused_until->isoFormat('LLL')]) }}
+                        {{ __('notification-preferences::notification-preferences.paused_until', ['date' => $activePause->paused_until->copy()->timezone($timezone)->isoFormat('LLL')]) }}
                     @else
                         {{ __('notification-preferences::notification-preferences.paused_indefinitely') }}
                     @endif

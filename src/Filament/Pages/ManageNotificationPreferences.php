@@ -102,7 +102,25 @@ class ManageNotificationPreferences extends Page
             'channels' => (array) config('notification-preferences.channels', []),
             'pausePresets' => (array) config('notification-preferences.pause_presets', []),
             'activePause' => $manager?->activePause(),
+            'timezone' => $this->displayTimezone(),
         ];
+    }
+
+    /**
+     * Timezone used to render dates in the UI. Configurable via the `timezone` config key
+     * (string or closure); falls back to the application timezone.
+     */
+    protected function displayTimezone(): string
+    {
+        $timezone = config('notification-preferences.timezone');
+
+        if (is_callable($timezone)) {
+            $timezone = $timezone();
+        }
+
+        return is_string($timezone) && $timezone !== ''
+            ? $timezone
+            : (string) config('app.timezone', 'UTC');
     }
 
     protected function notifiable(): ?Model
